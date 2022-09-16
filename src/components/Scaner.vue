@@ -1,8 +1,19 @@
 <template>
-  <div class="scaner" ref="scaner">
-    <div class="banner" v-if="showBanner">
-      <i class="close_icon" @click="() => showBanner = false"></i>
-      <p class="text">若当前浏览器无法扫码，请切换其他浏览器尝试</p>
+  <div
+    class="scaner"
+    ref="scaner"
+  >
+    <div
+      class="banner"
+      v-if="showBanner"
+    >
+      <i
+        class="close_icon"
+        @click="() => showBanner = false"
+      ></i>
+      <p class="text">
+        若当前浏览器无法扫码，请切换其他浏览器尝试
+      </p>
     </div>
     <div class="cover">
       <p class="line"></p>
@@ -10,7 +21,9 @@
       <span class="square top right"></span>
       <span class="square bottom right"></span>
       <span class="square bottom left"></span>
-      <p class="tips">将二维码放入框内，即可自动扫描</p>
+      <p class="tips">
+        将二维码放入框内，即可自动扫描
+      </p>
     </div>
     <video
       v-show="showPlay"
@@ -20,8 +33,16 @@
       :height="videoWH.height"
       controls
     ></video>
-    <canvas v-show="!showPlay" ref="canvas" />
-    <button v-show="showPlay" @click="run">开始</button>
+    <canvas
+      v-show="!showPlay"
+      ref="canvas"
+    />
+    <button
+      v-show="showPlay"
+      @click="run"
+    >
+      开始
+    </button>
   </div>
 </template>
 

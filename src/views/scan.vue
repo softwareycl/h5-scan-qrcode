@@ -1,13 +1,18 @@
 <template>
   <div class="scan">
     <div class="nav">
-      <a class="close" @click="() => $router.go(-1)"></a>
-      <p class="title">Scan QRcode</p>
+      <a
+        class="close"
+        @click="() => $router.go(-1)"
+      ></a>
+      <p class="title">
+        Scan QRcode
+      </p>
     </div>
     <div class="scroll-container">
       <Scaner
-        v-on:code-scanned="codeScanned"
-        v-on:error-captured="errorCaptured"
+        @code-scanned="codeScanned"
+        @error-captured="errorCaptured"
         :stop-on-scanned="true"
         :draw-on-found="true"
         :responsive="false"
@@ -65,8 +70,8 @@ export default {
     }
   },
   mounted () {
-    var str = navigator.userAgent.toLowerCase(); 
-    var ver = str.match(/cpu iphone os (.*?) like mac os/);
+    const str = navigator.userAgent.toLowerCase(); 
+    const ver = str.match(/cpu iphone os (.*?) like mac os/);
     if (ver && ver[1].replace(/_/g,".") < '10.3.3') {
      alert('相机调用失败');
     }

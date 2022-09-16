@@ -1,86 +1,78 @@
 <template>
   <div class="home">
-    <i class="banner"></i>
-    <div class="tips">
-      <p class="tips_title">HELLO WORLD</p>
-      <p class="tips_descript">Scan QRcode By Your Browser</p>
-    </div>
-    <button class="button" @click="$router.push({name: 'Scan'})">SCAN QRCODE</button>
+    <van-tabs
+      background="#F0EEED"
+      color="#3188C9"
+    >
+      <van-tab title="扫码签到">
+        <div class="tab-content">
+          <van-button
+            class="scan-button"
+            type="primary"
+            @click="scan"
+          >
+            扫码签到
+          </van-button>
+          <p>已签到人数：10</p>
+        </div>
+      </van-tab>
+      <van-tab title="手输签到">
+        <div class="tab-content">
+          <div>
+            <span>随机码：</span>
+            <input
+              v-model="randomCode"
+              type="text"
+            >
+          </div>
+          <p>已签到人数：10</p>
+          <van-button
+            class="scan-button"
+            type="primary"
+            @click="submit"
+          >
+            提交
+          </van-button>
+        </div>
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  data() {
+    return {
+      randomCode: ""
+    }
+  },
+  methods: {
+    scan() {
+      this.$router.push({name: 'Scan'});
+    },
+    submit() {
+      console.log(this.randomCode);
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .home {
+  font-size: 1.6rem;
+}
+.van-tabs {
   height: 100vh;
-  background: #5F68E8;
+}
+.tab-content {
+  height: calc(100vh - 44px);
   position: relative;
-}
-.home .banner {
-  display: inline-block;
-  width: 100%;
-  height: 0px;
-  padding-top: 150%;
-  background: url('../assets/bg.png') no-repeat center;
-  background-size: auto 100%;
-  animation: move 5s ease-in-out infinite;
-  animation-fill-mode: both;
-}
-.tips {
-  width: 100%;
-  position: absolute;
-  bottom: 180px;
-  left: 0;
-  padding-top: 400px;
-  color: #FFFFFF;
-}
-.tips p {
-  padding: 0;
-  margin: 0;
-}
-.tips .tips_title {
-  font-size: 32px;
-  font-weight: bold;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, .15);
-}
-.tips .tips_descript {
-  font-size: 20px;
-  padding-top: 12px;
-}
-.button {
-  height: 56px;
-  width: 246px;
-  line-height: 56px;
-  background: url('../assets/button.png') no-repeat center;
-  background-size: 100% 100%;
-  position: absolute;
-  bottom: 72px;
-  left: 50%;
-  margin-left: -123px;
-  outline: none;
-  border: none;
-  -webkit-appearance: none;
-  user-select: none;
-  color: #FFFFFF;
-  font-size: 18px;
-  filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, .25));
-}
-
-@keyframes move {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(36px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>
