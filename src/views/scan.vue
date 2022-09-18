@@ -87,6 +87,7 @@ export default {
 .scan .nav {
   width: 100%;
   height: 48px;
+  background: #F0EEED;
   line-height: 48px;
   position: fixed;
   top: 0;

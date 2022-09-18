@@ -122,44 +122,13 @@ export default {
       }
     }
   },
+  mounted () {
+    this.setup();
+  },
+  beforeDestroy () {
+    this.fullStop();
+  },
   methods: {
-    // 画线
-    drawLine (begin, end) {
-      this.canvas.beginPath();
-      this.canvas.moveTo(begin.x, begin.y);
-      this.canvas.lineTo(end.x, end.y);
-      this.canvas.lineWidth = this.lineWidth;
-      this.canvas.strokeStyle = this.lineColor;
-      this.canvas.stroke();
-    },
-    // 画框
-    drawBox (location) {
-      if (this.drawOnfound) {
-        this.drawLine(location.topLeftCorner, location.topRightCorner);
-        this.drawLine(location.topRightCorner, location.bottomRightCorner);
-        this.drawLine(location.bottomRightCorner, location.bottomLeftCorner);
-        this.drawLine(location.bottomLeftCorner, location.topLeftCorner);
-      }
-    },
-    tick () {
-      if (this.$refs.video && this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
-        this.$refs.canvas.height = this.videoWH.height;
-        this.$refs.canvas.width = this.videoWH.width;
-        this.canvas.drawImage(this.$refs.video, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-        const imageData = this.canvas.getImageData(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-        let code = false;
-        try {
-          code = jsQR(imageData.data, imageData.width, imageData.height);
-        } catch (e) {
-          console.error(e);
-        }
-        if (code) {
-          this.drawBox(code.location);
-          this.found(code.data);
-        }
-      }
-      this.run();
-    },
     // 初始化
     setup () {
       if (this.responsive) {
@@ -203,6 +172,43 @@ export default {
           });
       }
     },
+    // 画线
+    drawLine (begin, end) {
+      this.canvas.beginPath();
+      this.canvas.moveTo(begin.x, begin.y);
+      this.canvas.lineTo(end.x, end.y);
+      this.canvas.lineWidth = this.lineWidth;
+      this.canvas.strokeStyle = this.lineColor;
+      this.canvas.stroke();
+    },
+    // 画框
+    drawBox (location) {
+      if (this.drawOnfound) {
+        this.drawLine(location.topLeftCorner, location.topRightCorner);
+        this.drawLine(location.topRightCorner, location.bottomRightCorner);
+        this.drawLine(location.bottomRightCorner, location.bottomLeftCorner);
+        this.drawLine(location.bottomLeftCorner, location.topLeftCorner);
+      }
+    },
+    tick () {
+      if (this.$refs.video && this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
+        this.$refs.canvas.height = this.videoWH.height;
+        this.$refs.canvas.width = this.videoWH.width;
+        this.canvas.drawImage(this.$refs.video, 0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+        const imageData = this.canvas.getImageData(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+        let code = false;
+        try {
+          code = jsQR(imageData.data, imageData.width, imageData.height);
+        } catch (e) {
+          console.error(e);
+        }
+        if (code) {
+          this.drawBox(code.location);
+          this.found(code.data);
+        }
+      }
+      this.run();
+    },
     run () {
       if (this.active) {
         requestAnimationFrame(this.tick);
@@ -227,12 +233,6 @@ export default {
       }
     }
   },
-  mounted () {
-    this.setup();
-  },
-  beforeDestroy () {
-    this.fullStop();
-  }
 }
 </script>
 

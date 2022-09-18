@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .home {
   font-size: 1.6rem;
 }
@@ -69,7 +69,6 @@ export default {
 .tab-content {
   height: calc(100vh - 44px);
   position: relative;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
